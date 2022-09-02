@@ -227,7 +227,7 @@ public OnPlayerDisconnect(playerid, reason){
 		PlayerTextDrawShow(playerid, TxDWarnP_3[playerid][i]);
 	}
 	#if defined nsb_OnPlayerDisconnect
-		return nsb_OnPlayerDisconnect(playerid);
+		return nsb_OnPlayerDisconnect(playerid, reason);
 	#else
 		return 1;
 	#endif
@@ -410,7 +410,7 @@ public OnPlayerConnect(playerid){
  
 #define OnPlayerDisconnect nsb_OnPlayerDisconnect
 #if defined nsb_OnPlayerDisconnect
-	forward nsb_OnPlayerDisconnect(playerid);
+	forward nsb_OnPlayerDisconnect(playerid, reason);
 #endif
 
 
