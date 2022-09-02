@@ -195,13 +195,13 @@ public moverBarrinha(playerid, bar_index){
 }
 public OnPlayerDisconnect(playerid, reason){
 	for(new i; i < sizeof(TxDWarnP_1[]); i++){
-		PlayerTextDrawShow(playerid, TxDWarnP_1[playerid][i]);
+		PlayerTextDrawDestroy(playerid, TxDWarnP_1[playerid][i]);
 	}
 	for(new i; i < sizeof(TxDWarnP_2[]); i++){
-		PlayerTextDrawShow(playerid, TxDWarnP_2[playerid][i]);
+		PlayerTextDrawDestroy(playerid, TxDWarnP_2[playerid][i]);
 	}
 	for(new i; i < sizeof(TxDWarnP_3[]); i++){
-		PlayerTextDrawShow(playerid, TxDWarnP_3[playerid][i]);
+		PlayerTextDrawDestroy(playerid, TxDWarnP_3[playerid][i]);
 	}
 	#if defined nsb_OnPlayerDisconnect
 		return nsb_OnPlayerDisconnect(playerid, reason);
