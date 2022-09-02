@@ -48,14 +48,16 @@ public OnPlayerText(playerid, text[]){
 	return 1;
 }
 ```
-
 ## Resultado: 
 
 ![Conectando ao servidor](https://i.imgur.com/r0lrvy5.png)
 ![Spawnando no servidor](https://i.imgur.com/UPq2oTh.png)
 ![Chamando OnPlayerText](https://i.imgur.com/nRAUVSH.png)
 
-
+## Observações finais
+* É recomendado utilizar de 0-100 caracteres na mensagem para não ultrapassar a box
+* O Sistema gerencia os 3 slots de notificação automaticamente sem a necessidade de escolher, basta chamar a função.
+* Chamar a função enquanto existem 3 notificações sendo mostradas ao jogador fará com que a função retorne 0 e falhe.
 ## Créditos:
 * Brazz (Criador da include)
 * [Matheus Lima](https://pages.github.com/) (Inspiração & Ajuda com tópico sobre Barras de carregamento)
