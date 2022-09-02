@@ -1,7 +1,6 @@
 /*Criado Por: Marcos Brazz(Brazz)
 	~~~~~~~ Funções ~~~~~~
 	native Notificacao(playerid, const titulo[], const mensagem[]);
-
 	~~ Parametros:
 	~~ 	playerid: playerid;
 	~~ 	titulo: titulo da notificação
@@ -10,18 +9,13 @@
 	~~ Retornos:
 	~~ 0 = Função não foi executada/Exedeu as 3 notificações ao mesmo tempo
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 	Observações:
 	-> O Sistema pode criar até 3 notificações ao mesmo tempo
 	-> O Sistema analisa as variaveis para criar as 3 notificações automaticamente,
 	ou seja, Voce pode chamar a função Notificacao(...) varias vezes ao mesmo tempo. 
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-
 */
-
-
-
 #tryinclude <a_samp>
 //Declaração das Variaveis da Textdraw
 new 
@@ -31,16 +25,13 @@ new
 	PlayerText:TxDWarnP_2[MAX_PLAYERS][3],
 	Text:TxDWarn_3,
 	PlayerText:TxDWarnP_3[MAX_PLAYERS][3];
-
 //Variaveis Necessárias
 //notification-system (NTS)
 #define Brazz_MAX_NOTIFICATIONS 	(3) //Não coloque numeros acima de 3
-
 new
 	Brazz_BarUsed[MAX_PLAYERS][Brazz_MAX_NOTIFICATIONS] = {-1, ...},
 	Float:Brazz_BarPercent[MAX_PLAYERS][Brazz_MAX_NOTIFICATIONS] = {100.0, ...};
-
-stock Notificacao(playerid, titulo[], mensagem[]) return __chamarBarra(playerid, titulo, mensagem);
+stock Notificacao(playerid, titulo[], mensagem[]) return __chamarBarra(playerid, FixText(titulo), FixText(mensagem));
 public OnGameModeInit()
 {
 	// Don't use these lines if it's a filterscript
@@ -57,8 +48,6 @@ public OnGameModeInit()
 	TextDrawUseBox(TxDWarn_1, 1);
 	TextDrawSetProportional(TxDWarn_1, 1);
 	TextDrawSetSelectable(TxDWarn_1, 0);
-
-
 	TxDWarn_2 = TextDrawCreate(563.000000, 241.000000, "_");
 	TextDrawFont(TxDWarn_2, 1);
 	TextDrawLetterSize(TxDWarn_2, 0.600000, 6.450007);
@@ -72,8 +61,6 @@ public OnGameModeInit()
 	TextDrawUseBox(TxDWarn_2, 1);
 	TextDrawSetProportional(TxDWarn_2, 1);
 	TextDrawSetSelectable(TxDWarn_2, 0);
-
-
 	TxDWarn_3 = TextDrawCreate(563.000000, 177.000000, "_");
 	TextDrawFont(TxDWarn_3, 2);
 	TextDrawLetterSize(TxDWarn_3, 0.600000, 6.450007);
@@ -93,22 +80,17 @@ public OnGameModeInit()
 		return 1;
 	#endif
 }
-
 public OnGameModeExit()
 {
 	TextDrawDestroy(TxDWarn_1);
 	TextDrawDestroy(TxDWarn_2);
 	TextDrawDestroy(TxDWarn_3);
-
 	#if defined nsb_OnGameModeExit
 		return nsb_OnGameModeExit();
 	#else
 		return 1;
 	#endif
 }
-
-
-
 stock __chamarBarra(playerid, titulo[], mensagem[]) {
 	new
 	bar_index = __getBarUnused(playerid);
@@ -130,7 +112,6 @@ stock __getBarUnused(playerid){
 stock __mostrarBarra(playerid, bar_index, titulo[] = "", mensagem[] = "") {
 	switch(bar_index) {
 		case 0: {
-
 			PlayerTextDrawSetString(playerid, TxDWarnP_1[playerid][1], titulo);
 			PlayerTextDrawSetString(playerid, TxDWarnP_1[playerid][2], mensagem);
 			TextDrawShowForPlayer(playerid, TxDWarn_1);
@@ -159,7 +140,6 @@ stock __mostrarBarra(playerid, bar_index, titulo[] = "", mensagem[] = "") {
 stock __ocultarBarra(playerid, bar_index) {
 	switch(bar_index) {
 		case 0: {
-
 			PlayerTextDrawSetString(playerid, TxDWarnP_1[playerid][1], "_");
 			PlayerTextDrawSetString(playerid, TxDWarnP_1[playerid][2], "_");
 			TextDrawHideForPlayer(playerid, TxDWarn_1);
@@ -191,11 +171,8 @@ public moverBarrinha(playerid, bar_index){
 		Brazz_BarPercent[playerid][bar_index] -= 1.0;
 		new Float:base = 0.79;
 		new Float:bar = (Brazz_BarPercent[playerid][bar_index]*base);
-
-
 		switch(bar_index) {
 			case 0: {
-
 				PlayerTextDrawTextSize(playerid, TxDWarnP_1[playerid][0], 521+bar, 75.000000);
 				PlayerTextDrawShow(playerid, TxDWarnP_1[playerid][0]);
 			}
@@ -250,7 +227,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_1[playerid][0], 1);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_1[playerid][0], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_1[playerid][0], 0);
-
 	TxDWarnP_1[playerid][1] = CreatePlayerTextDraw(playerid, 564.000000, 307.000000, "titulo");
 	PlayerTextDrawFont(playerid, TxDWarnP_1[playerid][1], 2);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_1[playerid][1], 0.204166, 1.100000);
@@ -264,8 +240,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_1[playerid][1], 0);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_1[playerid][1], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_1[playerid][1], 0);
-
-
 	TxDWarnP_1[playerid][2] = CreatePlayerTextDraw(playerid, 530.000000, 321.000000, "brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao ");
 	PlayerTextDrawFont(playerid, TxDWarnP_1[playerid][2], 2);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_1[playerid][2], 0.150000, 0.800000);
@@ -279,9 +253,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_1[playerid][2], 0);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_1[playerid][2], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_1[playerid][2], 0);
-
-
-
 	TxDWarnP_2[playerid][0] = CreatePlayerTextDraw(playerid, 525.000000, 296.000000, "_");
 	PlayerTextDrawFont(playerid, TxDWarnP_2[playerid][0], 1);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_2[playerid][0], 0.304166, 0.200003);
@@ -295,7 +266,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_2[playerid][0], 1);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_2[playerid][0], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_2[playerid][0], 0);
-
 	TxDWarnP_2[playerid][1] = CreatePlayerTextDraw(playerid, 564.000000, 243.000000, "titulo");
 	PlayerTextDrawFont(playerid, TxDWarnP_2[playerid][1], 2);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_2[playerid][1], 0.204166, 1.100000);
@@ -309,7 +279,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_2[playerid][1], 0);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_2[playerid][1], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_2[playerid][1], 0);
-
 	TxDWarnP_2[playerid][2] = CreatePlayerTextDraw(playerid, 530.000000, 254.000000, "brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao ");
 	PlayerTextDrawFont(playerid, TxDWarnP_2[playerid][2], 2);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_2[playerid][2], 0.150000, 0.800000);
@@ -323,8 +292,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_2[playerid][2], 0);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_2[playerid][2], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_2[playerid][2], 0);
-
-
 	TxDWarnP_3[playerid][0] = CreatePlayerTextDraw(playerid, 525.000000, 232.000000, "_");
 	PlayerTextDrawFont(playerid, TxDWarnP_3[playerid][0], 1);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_3[playerid][0], 0.304166, 0.200003);
@@ -338,7 +305,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_3[playerid][0], 1);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_3[playerid][0], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_3[playerid][0], 0);
-
 	TxDWarnP_3[playerid][1] = CreatePlayerTextDraw(playerid, 564.000000, 176.000000, "titulo");
 	PlayerTextDrawFont(playerid, TxDWarnP_3[playerid][1], 2);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_3[playerid][1], 0.204166, 1.100000);
@@ -352,7 +318,6 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_3[playerid][1], 0);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_3[playerid][1], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_3[playerid][1], 0);
-
 	TxDWarnP_3[playerid][2] = CreatePlayerTextDraw(playerid, 530.000000, 188.000000, "brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao brazz lindao ");
 	PlayerTextDrawFont(playerid, TxDWarnP_3[playerid][2], 2);
 	PlayerTextDrawLetterSize(playerid, TxDWarnP_3[playerid][2], 0.150000, 0.800000);
@@ -366,16 +331,77 @@ public OnPlayerConnect(playerid){
 	PlayerTextDrawUseBox(playerid, TxDWarnP_3[playerid][2], 0);
 	PlayerTextDrawSetProportional(playerid, TxDWarnP_3[playerid][2], 1);
 	PlayerTextDrawSetSelectable(playerid, TxDWarnP_3[playerid][2], 0);
-
 	#if defined nsb_OnPlayerConnect
 		return nsb_OnPlayerConnect(playerid);
 	#else
 		return 1;
 	#endif
 }
+#if !defined FixText
+	stock FixText(string[])
+	{
+	    new szFixed[1024], iPos, iLen;
 
+	    for(iLen = strlen(string); iPos < iLen; iPos ++)
+	        switch(string[iPos])
+	        {
+	            case '%':          szFixed[iPos] = 37;
+	            case '&':          szFixed[iPos] = 38;
+	            case '¡':          szFixed[iPos] = 64;
+	            case '°':          szFixed[iPos] = 124;
+	            case 'À':          szFixed[iPos] = 128;
+	            case 'Á':          szFixed[iPos] = 129;
+	            case 'Â':          szFixed[iPos] = 130;
+	            case 'Ä', 'Ã':     szFixed[iPos] = 131;
+	            case 'Ç':          szFixed[iPos] = 133;
+	            case 'È':          szFixed[iPos] = 134;
+	            case 'É':          szFixed[iPos] = 135;
+	            case 'Ê':          szFixed[iPos] = 136;
+	            case 'Ë':          szFixed[iPos] = 137;
+	            case 'Ì':          szFixed[iPos] = 138;
+	            case 'Í':          szFixed[iPos] = 139;
+	            case 'Î':          szFixed[iPos] = 140;
+	            case 'Ï':          szFixed[iPos] = 141;
+	            case 'Ò':          szFixed[iPos] = 142;
+	            case 'Ó':          szFixed[iPos] = 143;
+	            case 'Ô':          szFixed[iPos] = 144;
+	            case 'Ö', 'Õ':     szFixed[iPos] = 145;
+	            case 'Ù':          szFixed[iPos] = 146;
+	            case 'Ú':          szFixed[iPos] = 147;
+	            case 'Û':          szFixed[iPos] = 148;
+	            case 'Ü':          szFixed[iPos] = 149;
+	            case 'à':          szFixed[iPos] = 151;
+	            case 'á':          szFixed[iPos] = 152;
+	            case 'â':          szFixed[iPos] = 153;
+	            case 'ä', 'ã':     szFixed[iPos] = 154;
+	            case 'ç':          szFixed[iPos] = 156;
+	            case 'è':          szFixed[iPos] = 157;
+	            case 'é':          szFixed[iPos] = 158;
+	            case 'ê':          szFixed[iPos] = 159;
+	            case 'ë':          szFixed[iPos] = 160;
+	            case 'ì':          szFixed[iPos] = 161;
+	            case 'í':          szFixed[iPos] = 162;
+	            case 'î':          szFixed[iPos] = 163;
+	            case 'ï':          szFixed[iPos] = 164;
+	            case 'ò':          szFixed[iPos] = 165;
+	            case 'ó':          szFixed[iPos] = 166;
+	            case 'ô':          szFixed[iPos] = 167;
+	            case 'ö', 'õ':     szFixed[iPos] = 168;
+	            case 'ù':          szFixed[iPos] = 169;
+	            case 'ú':          szFixed[iPos] = 170;
+	            case 'û':          szFixed[iPos] = 171;
+	            case 'ü':          szFixed[iPos] = 172;
+	            case 'Ñ':          szFixed[iPos] = 173;
+	            case 'ñ':          szFixed[iPos] = 174;
+	            case '¿':          szFixed[iPos] = 175;
+	            case '`':          szFixed[iPos] = 177;
+	            default:           szFixed[iPos] = string[iPos];
+	          }
+	    return szFixed;
+	}
+#endif
+	
 //~~~~~~~~~ HOOKS ~~~~~~~//
-
 //~~~~~~~~~ Hook OnPlayerConnect ~~~~~~~//
 #if defined _ALS_OnPlayerConnect
 	#undef OnPlayerConnect
@@ -387,8 +413,6 @@ public OnPlayerConnect(playerid){
 #if defined nsb_OnPlayerConnect
 	forward nsb_OnPlayerConnect(playerid);
 #endif
-
-
 //~~~~~~~~~ Hook OnGameModeInit ~~~~~~~//
 #if defined _ALS_OnGameModeInit
 	#undef OnGameModeInit
@@ -400,7 +424,6 @@ public OnPlayerConnect(playerid){
 #if defined nsb_OnGameModeInit
 	forward nsb_OnGameModeInit();
 #endif
-
 	//~~~~~~~~~ Hook OnPlayerDisconnect ~~~~~~~//
 #if defined _ALS_OnPlayerDisconnect
 	#undef OnPlayerDisconnect
@@ -412,8 +435,6 @@ public OnPlayerConnect(playerid){
 #if defined nsb_OnPlayerDisconnect
 	forward nsb_OnPlayerDisconnect(playerid, reason);
 #endif
-
-
 //~~~~~~~~~ Hook OnGameModeInit ~~~~~~~//
 #if defined _ALS_OnGameModeExit
 	#undef OnGameModeExit
