@@ -96,7 +96,10 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
-	
+	TextDrawDestroy(TxDWarn_1);
+	TextDrawDestroy(TxDWarn_2);
+	TextDrawDestroy(TxDWarn_3);
+
 	#if defined nsb_OnGameModeExit
 		return nsb_OnGameModeExit();
 	#else
@@ -214,8 +217,17 @@ public moverBarrinha(playerid, bar_index){
 	}
 }
 public OnPlayerDisconnect(playerid, reason){
-	#if defined nsb_OnPlayerConnect
-		return nsb_OnPlayerConnect(playerid);
+	for(new i; i < sizeof(TxDWarnP_1[]); i++){
+		PlayerTextDrawShow(playerid, TxDWarnP_1[playerid][i]);
+	}
+	for(new i; i < sizeof(TxDWarnP_2[]); i++){
+		PlayerTextDrawShow(playerid, TxDWarnP_2[playerid][i]);
+	}
+	for(new i; i < sizeof(TxDWarnP_3[]); i++){
+		PlayerTextDrawShow(playerid, TxDWarnP_3[playerid][i]);
+	}
+	#if defined nsb_OnPlayerDisconnect
+		return nsb_OnPlayerDisconnect(playerid);
 	#else
 		return 1;
 	#endif
