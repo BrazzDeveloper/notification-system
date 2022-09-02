@@ -33,6 +33,10 @@ native Notificacao(playerid, const titulo[], const mensagem[]);
 ## Exemplo de Uso:
 
 ```pawn
+#include <notifications.inc>
+
+
+
 public OnPlayerSpawn(playerid){
 	Notificacao(playerid, "Spawnado", "Voce acaba de spawnar no servidor, parabens. seja bem vindo ao servidor!");
 	SetPlayerPos(playerid, 1212.4865,-977.6506,43.4766);
