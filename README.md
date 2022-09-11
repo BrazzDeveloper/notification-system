@@ -64,4 +64,3 @@ public OnPlayerText(playerid, text[]){
 * Chamar a função enquanto existem 3 notificações sendo mostradas ao jogador fará com que a função retorne 0 e falhe.
 ## Créditos:
 * Brazz (Criador da include)
-* [Matheus Lima](https://github.com/skyMateus/) (Inspiração & Ajuda com tópico sobre Barras de carregamento)
